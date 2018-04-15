@@ -20,4 +20,12 @@ class Algorithm {
         }
         return newBits
     }
+
+    fun getLeftSide(input: IntArray): IntArray {
+        return input.copyOf(input.size / 2)
+    }
+
+    fun getRightSide(input: IntArray): IntArray {
+        return input.copyOfRange(input.size / 2, input.size)
+    }
 }
