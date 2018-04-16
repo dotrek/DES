@@ -74,9 +74,10 @@ class Algorithm {
     )
 
     fun permuteArrayUsingPatternArray(input: IntArray, patternArray: IntArray): IntArray {
-        val newBits = IntArray(input.size)
-        for (i in 0 until input.size) {
+        val newBits = IntArray(patternArray.size)
+        for (i in 0 until patternArray.size) {
             newBits[i] = input[patternArray[i] - 1]
+            println("$i: ${newBits[i]}")
         }
         return newBits
     }
@@ -93,7 +94,32 @@ class Algorithm {
         val permutedInput = permuteArrayUsingPatternArray(input, initialPermutationTable)
         val L = getLeftSide(permutedInput)
         val R = getRightSide(permutedInput)
+        val extendedR = permuteArrayUsingPatternArray(R, E)
+        var sTable = IntArray(extendedR.size)
+        for (i in 0 until extendedR.size) {
+            sTable = extendedR xor keyGenerator.generateRoundKeys(i)
+        }
+        var splitTable = splitIntoEightParts(sTable)
+
     }
 
+    fun splitIntoEightParts(input: IntArray): Array<IntArray> {
+        val splitArray = Array<IntArray>(8, { IntArray(input.size / 8) })
+        var j = 0
+        for (i in 0 until splitArray.size) {
+            splitArray[i] = input.sliceArray(IntRange(j, j + 7))
+            j += 8
+        }
+        return splitArray
+    }
 
 }
+
+private infix fun IntArray.xor(secondArray: IntArray): IntArray {
+    val resultArray = IntArray(size)
+    for (i in 0 until size) {
+        resultArray[i] = this[i] xor secondArray[i]
+    }
+    return resultArray
+}
+

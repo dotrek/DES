@@ -54,4 +54,12 @@ class AlgorithmTest {
         )
         ArrayAsserts.assertArrayEquals(rightSide, algorithm.getRightSide(table))
     }
+
+    @Test
+    fun checkIfSplittingWorksProperly() {
+        val firstArray = intArrayOf(
+                1, 2, 3, 4, 5, 6, 7, 8
+        )
+        ArrayAsserts.assertArrayEquals(firstArray, algorithm.splitIntoEightParts(table)[0])
+    }
 }

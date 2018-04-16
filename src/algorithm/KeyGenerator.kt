@@ -2,9 +2,6 @@ package algorithm
 
 import java.util.*
 
-/**
- * Created by dotre on 15.04.2018.
- */
 class KeyGenerator(private val input: IntArray) {
     val PC1 = intArrayOf(
             57, 49, 41, 33, 25, 17, 9,
@@ -39,9 +36,10 @@ class KeyGenerator(private val input: IntArray) {
         return this
     }
 
-    fun createLeftAndRightSideOfKey() : KeyGenerator {
+    fun createLeftAndRightSideOfKey(): KeyGenerator {
         return this.createLeftSideOfKey().createRightSideOfKey()
     }
+
     fun createLeftSideOfKey(): KeyGenerator {
         c = key.copyOf(key.size / 2)
         return this
@@ -64,17 +62,16 @@ class KeyGenerator(private val input: IntArray) {
         return answer
     }
 
+    //Kn
     fun generateRoundKeys(round: Int): IntArray {
         val C1: IntArray
         val D1: IntArray
         val rotationTimes = rotations[round]
-
         C1 = leftShift(c, rotationTimes)
         D1 = leftShift(d, rotationTimes)
         val CnDn = C1 + D1
-        //CnDn.iterator().forEachRemaining { e -> println(e) }
-
-        return algorithm.permuteArrayUsingPatternArray(CnDn,PC2)
+        //return permuted choice 2
+        return algorithm.permuteArrayUsingPatternArray(CnDn, PC2)
     }
 
 }
