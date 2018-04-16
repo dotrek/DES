@@ -21,7 +21,7 @@ class KeyGeneratorTest {
     @Test
     fun checkIfKeyGeneratesProperly() {
         val key = keyGenerator.keyGenerate()
-        ArrayAsserts.assertArrayEquals(keyGenerator.PC1, key)
+        ArrayAsserts.assertArrayEquals(keyGenerator.PC1, key.key)
     }
 
     @Test
@@ -34,8 +34,8 @@ class KeyGeneratorTest {
         )
 
         keyGenerator.keyGenerate()
-        val c = keyGenerator.getLeftSideOfKey()
-        ArrayAsserts.assertArrayEquals(leftSide, c)
+        val c = keyGenerator.createLeftSideOfKey()
+        ArrayAsserts.assertArrayEquals(leftSide, c.c)
     }
 
     @Test
@@ -47,15 +47,15 @@ class KeyGeneratorTest {
                 21, 13, 5, 28, 20, 12, 4
         )
         val key = keyGenerator.keyGenerate()
-        val d = keyGenerator.getRightSideOfKey()
-        ArrayAsserts.assertArrayEquals(rightSide, d)
+        val d = key.createRightSideOfKey()
+        ArrayAsserts.assertArrayEquals(rightSide, d.d)
     }
 
     @Test
     fun checkLeftShiftFunctionality() {
         val caseArray = intArrayOf(1, 2, 3, 4, 5)
         val caseArrayShifted = intArrayOf(2, 3, 4, 5, 1)
-        val leftShift = keyGenerator.leftShift(caseArray, 5)
+        val leftShift = keyGenerator.leftShift(caseArray, 1)
         ArrayAsserts.assertArrayEquals(caseArrayShifted, leftShift)
     }
 }

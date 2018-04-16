@@ -33,7 +33,7 @@ class AlgorithmTest {
                 61, 53, 45, 37, 29, 21, 13, 5,
                 63, 55, 47, 39, 31, 23, 15, 7
         )
-        val permutation = algorithm.initialPermutation(table)
+        val permutation = algorithm.permuteArrayUsingPatternArray(table, algorithm.initialPermutationTable)
         ArrayAsserts.assertArrayEquals(permutedTable, permutation)
 
     }
