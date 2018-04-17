@@ -91,9 +91,14 @@ class Algorithm {
     }
 
     fun cipher(input: IntArray) {
+        //initial permutation
         val permutedInput = permuteArrayUsingPatternArray(input, initialPermutationTable)
+        //split into two sides
         val L = getLeftSide(permutedInput)
         val R = getRightSide(permutedInput)
+        //generate key
+        val key = keyGenerator.keyGenerate().createLeftAndRightSideOfKey()
+        //Permute R with extension array
         val extendedR = permuteArrayUsingPatternArray(R, E)
         var sTable = IntArray(extendedR.size)
         for (i in 0 until extendedR.size) {

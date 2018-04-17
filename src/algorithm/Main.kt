@@ -14,6 +14,5 @@ val table = intArrayOf(
 val algorithm = Algorithm()
 val keyGenerator = KeyGenerator(table)
 fun main(args: Array<String>) {
-    keyGenerator.keyGenerate().createLeftAndRightSideOfKey()
-    keyGenerator.generateRoundKeys(1)
+    print (2 xor 4)
 }
