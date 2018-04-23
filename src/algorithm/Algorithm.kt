@@ -93,6 +93,7 @@ class Algorithm {
     fun cipher(input: IntArray) {
         //initial permutation
         val permutedInput = permuteArrayUsingPatternArray(input, initialPermutationTable)
+        println("After initial permutation: ${changeIntArrayToBinaryString(permutedInput)}")
         //split into two sides
         val L = getLeftSide(permutedInput)
         val R = getRightSide(permutedInput)
@@ -105,7 +106,12 @@ class Algorithm {
             sTable = extendedR xor keyGenerator.generateRoundKeys(i)
         }
         var splitTable = splitIntoEightParts(sTable)
-
+    }
+    fun changeIntArrayToBinaryString(array: IntArray):String{
+        var builder =StringBuilder()
+        val stringArray = array.map { it.toString(2) }
+        stringArray.forEach { builder.append(it) }
+        return builder.toString()
     }
 
     fun splitIntoEightParts(input: IntArray): Array<IntArray> {

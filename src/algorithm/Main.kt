@@ -14,5 +14,5 @@ val table = intArrayOf(
 val algorithm = Algorithm()
 val keyGenerator = KeyGenerator(table)
 fun main(args: Array<String>) {
-    print (2 xor 4)
+    algorithm.cipher(table)
 }
