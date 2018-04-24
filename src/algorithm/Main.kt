@@ -1,7 +1,7 @@
 package algorithm
 
 
-val table = intArrayOf(
+val table = byteArrayOf(
         1, 2, 3, 4, 5, 6, 7, 8,
         9, 10, 11, 12, 13, 14, 15, 16,
         17, 18, 19, 20, 21, 22, 23, 24,
@@ -14,5 +14,5 @@ val table = intArrayOf(
 val algorithm = Algorithm()
 val keyGenerator = KeyGenerator(table)
 fun main(args: Array<String>) {
-    algorithm.cipher(table)
+    algorithm.cipher("abc")
 }

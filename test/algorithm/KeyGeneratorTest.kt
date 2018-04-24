@@ -4,7 +4,7 @@ import org.testng.annotations.Test
 import org.testng.internal.junit.ArrayAsserts
 
 class KeyGeneratorTest {
-    val table = intArrayOf(
+    val table = byteArrayOf(
             1, 2, 3, 4, 5, 6, 7, 8,
             9, 10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, 21, 22, 23, 24,
@@ -26,7 +26,7 @@ class KeyGeneratorTest {
 
     @Test
     fun checkIfLeftSideIsFirstHalfOfKey() {
-        val leftSide = intArrayOf(
+        val leftSide = byteArrayOf(
                 57, 49, 41, 33, 25, 17, 9,
                 1, 58, 50, 42, 34, 26, 18,
                 10, 2, 59, 51, 43, 35, 27,
@@ -40,7 +40,7 @@ class KeyGeneratorTest {
 
     @Test
     fun checkIfRightSideIsSecondHalfOfKey() {
-        val rightSide = intArrayOf(
+        val rightSide = byteArrayOf(
                 63, 55, 47, 39, 31, 23, 15,
                 7, 62, 54, 46, 38, 30, 22,
                 14, 6, 61, 53, 45, 37, 29,
@@ -53,8 +53,8 @@ class KeyGeneratorTest {
 
     @Test
     fun checkLeftShiftFunctionality() {
-        val caseArray = intArrayOf(1, 2, 3, 4, 5)
-        val caseArrayShifted = intArrayOf(2, 3, 4, 5, 1)
+        val caseArray = byteArrayOf(1, 2, 3, 4, 5)
+        val caseArrayShifted = byteArrayOf(2, 3, 4, 5, 1)
         val leftShift = keyGenerator.leftShift(caseArray, 1)
         ArrayAsserts.assertArrayEquals(caseArrayShifted, leftShift)
     }

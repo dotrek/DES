@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
  */
 class AlgorithmTest {
     val algorithm = Algorithm()
-    val table = intArrayOf(
+    val table = byteArrayOf(
             1, 2, 3, 4, 5, 6, 7, 8,
             9, 10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, 21, 22, 23, 24,
@@ -23,7 +23,7 @@ class AlgorithmTest {
     @Test
     fun checkIfInitialPermutationWorksProperly() {
 
-        val permutedTable = intArrayOf(
+        val permutedTable = byteArrayOf(
                 58, 50, 42, 34, 26, 18, 10, 2,
                 60, 52, 44, 36, 28, 20, 12, 4,
                 62, 54, 46, 38, 30, 22, 14, 6,
@@ -46,7 +46,7 @@ class AlgorithmTest {
 
     @Test
     fun checkIfRightSideIsSecondHalfOfTable() {
-        val rightSide = intArrayOf(
+        val rightSide = byteArrayOf(
                 33, 34, 35, 36, 37, 38, 39, 40,
                 41, 42, 43, 44, 45, 46, 47, 48,
                 49, 50, 51, 52, 53, 54, 55, 56,
@@ -57,7 +57,7 @@ class AlgorithmTest {
 
     @Test
     fun checkIfSplittingWorksProperly() {
-        val firstArray = intArrayOf(
+        val firstArray = byteArrayOf(
                 1, 2, 3, 4, 5, 6, 7, 8
         )
         ArrayAsserts.assertArrayEquals(firstArray, algorithm.splitIntoEightParts(table)[0])

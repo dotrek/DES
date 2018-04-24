@@ -2,8 +2,8 @@ package algorithm
 
 import java.util.*
 
-class KeyGenerator(private val input: IntArray) {
-    val PC1 = intArrayOf(
+class KeyGenerator(private val input: ByteArray) {
+    val PC1 = byteArrayOf(
             57, 49, 41, 33, 25, 17, 9,
             1, 58, 50, 42, 34, 26, 18,
             10, 2, 59, 51, 43, 35, 27,
@@ -13,7 +13,7 @@ class KeyGenerator(private val input: IntArray) {
             14, 6, 61, 53, 45, 37, 29,
             21, 13, 5, 28, 20, 12, 4
     )
-    val PC2 = intArrayOf(
+    val PC2 = byteArrayOf(
             14, 17, 11, 24, 1, 5,
             3, 28, 15, 6, 21, 10,
             23, 19, 12, 4, 26, 8,
@@ -23,13 +23,13 @@ class KeyGenerator(private val input: IntArray) {
             44, 49, 39, 56, 34, 53,
             46, 42, 50, 36, 29, 32
     )
-    private val rotations = intArrayOf(1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1)
-    lateinit var key: IntArray
-    lateinit var c: IntArray
-    lateinit var d: IntArray
+    private val rotations = byteArrayOf(1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1)
+    lateinit var key: ByteArray
+    lateinit var c: ByteArray
+    lateinit var d: ByteArray
 
     fun keyGenerate(): KeyGenerator {
-        val newBits = IntArray(PC1.size)
+        val newBits = ByteArray(PC1.size)
         for (i in 0 until newBits.size)
             newBits[i] = input[PC1[i] - 1]
         key = newBits
@@ -50,7 +50,7 @@ class KeyGenerator(private val input: IntArray) {
         return this
     }
 
-    fun leftShift(bits: IntArray, n: Int): IntArray {
+    fun leftShift(bits: ByteArray, n: Byte): ByteArray {
         val answer = Arrays.copyOf(bits, bits.size)
         for (i in 0 until n) {
             val temp = answer[0]
@@ -63,9 +63,9 @@ class KeyGenerator(private val input: IntArray) {
     }
 
     //Kn
-    fun generateRoundKeys(round: Int): IntArray {
-        val C1: IntArray
-        val D1: IntArray
+    fun generateRoundKeys(round: Int): ByteArray {
+        val C1: ByteArray
+        val D1: ByteArray
         val rotationTimes = rotations[round]
         C1 = leftShift(c, rotationTimes)
         D1 = leftShift(d, rotationTimes)
