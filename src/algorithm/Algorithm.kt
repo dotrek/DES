@@ -5,6 +5,7 @@ import kotlin.experimental.xor
 
 
 class Algorithm {
+    private var iteration = 0;
     val initialPermutationTable = byteArrayOf(
             58, 50, 42, 34, 26, 18, 10, 2,
             60, 52, 44, 36, 28, 20, 12, 4,
@@ -78,34 +79,46 @@ class Algorithm {
 
 
     fun cipher(input: String) {
-        //change string to byteArray
+        //change string to inputBinaryByteArray
         val inputByteArray = input.toByteArray(Charsets.UTF_8)
+        println("After utf_8 encoding: ${inputByteArray.contentToString()}")
         val inputBinaryString = changeByteArrayToBinaryString(inputByteArray)
-        println("After UTF_8 encoding: ${inputBinaryString.toCharArray().contentToString()} Length: ${inputBinaryString.toCharArray().size}")
+        val inputBinaryCharArray = inputBinaryString.toCharArray().toTypedArray()
+        println("After binary converting: ${inputBinaryCharArray.contentToString()} Length: ${inputBinaryCharArray.size}")
+        val inputBinaryByteArray = convertCharArrayToByteArray(inputBinaryCharArray)
+        println("converted to byte array: ${inputBinaryByteArray.contentToString()} , $inputBinaryByteArray")
         //initial permutation
-        val permutedInput = permuteArrayUsingPatternArray(inputByteArray, initialPermutationTable)
+        val permutedInput = permuteArrayUsingPatternArray(inputBinaryByteArray, initialPermutationTable)
         println("After initial permutation: ${changeByteArrayToBinaryString(permutedInput)}")
         //split into two sides
         val L = getLeftSide(permutedInput)
+        println("L[$iteration]: ${L.contentToString()}")
         val R = getRightSide(permutedInput)
+        println("R[$iteration]: ${R.contentToString()}")
         //generate key
+        val keyGenerator = KeyGenerator(inputBinaryByteArray)
         val key = keyGenerator.keyGenerate().createLeftAndRightSideOfKey()
+        println("Key: ${key.key.contentToString()}")
         //Permute R with extension array
         val extendedR = permuteArrayUsingPatternArray(R, E)
-        var sTable = ByteArray(extendedR.size)
-        for (i in 0 until extendedR.size) {
-            sTable = extendedR xor keyGenerator.generateRoundKeys(i)
-        }
+
+        val sTable = extendedR xor keyGenerator.generateRoundKeys(iteration++)
+
         var splitTable = splitIntoEightParts(sTable)
     }
+
+    private fun convertCharArrayToByteArray(charArray: Array<Char>): ByteArray {
+        val intArray = charArray.map { if (it == '0') 0 else 1 }.toIntArray()
+        return convertIntArrayToByteArray(intArray)
+    }
+
+    private fun convertIntArrayToByteArray(intArray: IntArray): ByteArray =
+            intArray.foldIndexed(ByteArray(intArray.size)) { i, a, v -> a.apply { set(i, v.toByte()) } }
 
     private fun changeByteArrayToBinaryString(array: ByteArray): String {
         val builder = StringBuilder()
         val stringArray = array.map { getByteBinaryStr(it) }
-        stringArray.forEach {
-            println(it)
-            builder.append(it)
-        }
+        stringArray.forEach { builder.append(it) }
         return builder.toString()
     }
 
@@ -141,12 +154,16 @@ class Algorithm {
     }
 
     fun splitIntoEightParts(input: ByteArray): Array<ByteArray> {
-        val splitArray: Array<ByteArray> = Array(8, { ByteArray(input.size / 8) })
+        val resultArraySize = input.size/8
+        val splitArray: Array<ByteArray> = Array(8, { ByteArray(resultArraySize) })
         var j = 0
         for (i in 0 until splitArray.size) {
-            splitArray[i] = input.copyOfRange(j, j + 7)
-            j += 8
+            if (j >= input.size) break
+            splitArray[i] = input.copyOfRange(j, j + resultArraySize-1)
+            j += resultArraySize
         }
+        print("Split array: ")
+        splitArray.forEach { print(it.contentToString()) }
         return splitArray
     }
 

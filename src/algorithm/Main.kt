@@ -12,7 +12,6 @@ val table = byteArrayOf(
         57, 58, 59, 60, 61, 62, 63, 64
 )
 val algorithm = Algorithm()
-val keyGenerator = KeyGenerator(table)
 fun main(args: Array<String>) {
-    algorithm.cipher("abc")
+    algorithm.cipher("abcdefgh")
 }
